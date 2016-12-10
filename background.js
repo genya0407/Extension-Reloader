@@ -25,16 +25,13 @@ chrome.extension.onMessage.addListener(function(request, sender, sendResponse) {
   } else if (request.type == 'fireReload') {
 
     var extensionId = localStorage.getItem("targetExtensionId");
-    chrome.management.get(extensionId, function(result) {
-      var extensionName = result.name;
-      alert("extension reloaded!\n " + extensionName);
-    });
-
     // まずは無効にする
     chrome.management.setEnabled(extensionId, false);
     setTimeout(function() {
       // 500ms後にセット
       chrome.management.setEnabled(extensionId, true);
     }, 500);
+
+    sendResponse({ message: "extension reloaded!" });
   }
 });

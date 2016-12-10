@@ -19,7 +19,9 @@ document.onkeydown = function(event) {
     && (shiftKey === event.shiftKey)
     && (altKey === event.altKey)) {
 
-      chrome.extension.sendMessage({type: 'fireReload'});
+      chrome.extension.sendMessage({type: 'fireReload'}, function(response) {
+        console.log(response.message)
+      });
     }
   });
 }
